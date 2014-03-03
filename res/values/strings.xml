@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ChildhoodMemories</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_game_square">GameSquareActivity</string>
+    <string name="action_mygames">My Games</string>
+    <string name="action_gamesquare">Game Square</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_game">GameActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+
+</resources>
