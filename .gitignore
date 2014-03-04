@@ -1,6 +1,7 @@
 .settings/
 assets/
 bin/
+gen/
 .project
 .classpath
 proguard-project.txt
