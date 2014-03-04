@@ -1,11 +1,17 @@
 package com.childhoodmemories.webgames;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.GridView;
 
 public class GameSquareActivity extends Activity {
+	private List<String> lstFile = new ArrayList<String>();  //结果 List
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -18,8 +24,19 @@ public class GameSquareActivity extends Activity {
 		
 		GridView gridview = (GridView) findViewById(R.id.games_gridview);
 		
+		File[] files = new File("file:///android_asset/games").listFiles();
 		
+
+    	Log.d("-=-=-=-=-=-=-=-",String.valueOf(files.length));
 		
+	    for (int i = 0; i < files.length; i++)
+	    {
+	        File f = files[i];
+	        if (f.isDirectory() && f.getPath().indexOf("/.") == -1){  //忽略点文件（隐藏文件/文件夹）
+	        	Log.d("-=-=-=-=-=-=-=-",f.getPath());
+	        	lstFile.add(f.getPath());
+	        }
+	    }
 		/*
 		ArrayList<HashMap<String, Object>> meumList = new ArrayList<HashMap<String, Object>>();
         for(int i = 1;i < 10;i++)
@@ -75,5 +92,11 @@ public class GameSquareActivity extends Activity {
 		
 		return true;
 	}
+	
+	
+	private void getAssestsFileList(String path){
+		
 
+	}
+	
 }
