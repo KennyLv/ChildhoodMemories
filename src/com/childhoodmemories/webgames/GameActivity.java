@@ -1,19 +1,25 @@
 package com.childhoodmemories.webgames;
 
+import java.io.IOException;
+
+import org.json.JSONObject;
+
+import com.childhoodmemories.webgames.util.JsonUtil;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
+import android.webkit.WebSettings.PluginState;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
-import com.childhoodmemories.webgames.util.SystemUiHider;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -25,8 +31,8 @@ public class GameActivity extends Activity {
 	private Handler mHandler;
 	private WebView wView;
 	private WebSettings wSet;
-	private String game_folder; 
-	private String game_startrul; 
+	private String releaseDir; 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,22 +40,23 @@ public class GameActivity extends Activity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		
 		setContentView(R.layout.activity_game);
-
 		Intent intent = getIntent();
-		game_folder  = String.valueOf(intent.getIntExtra("game_folder",1));
-		game_startrul  = String.valueOf(intent.getIntExtra("game_startrul",1));
+		releaseDir  = intent.getStringExtra("releaseDir");
+		
+		Log.d("-==========", releaseDir);
         
-
-		wView = (WebView)findViewById(R.id.game_webview);  
 		mHandler = new Handler();
 
+		wView = (WebView)findViewById(R.id.game_webview);
         wSet = wView.getSettings();
         wSet.setJavaScriptEnabled(true);
-		
+        wSet.setSupportZoom(true); 
+        
         wView.requestFocus();
         wView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         
-        wView.loadUrl("file:///android_asset/games/" + game_folder + "/" + game_startrul); 
+        wView.loadUrl("file://" + releaseDir + "/TicTacToe.html"); 
+                
         wView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
