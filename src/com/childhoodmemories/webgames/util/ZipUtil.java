@@ -38,6 +38,7 @@ public class ZipUtil {
 				}
 			}
 			zis.closeEntry();
+			zis.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

@@ -50,12 +50,11 @@ public class GameActivity extends Activity {
 		wView = (WebView)findViewById(R.id.game_webview);
         wSet = wView.getSettings();
         wSet.setJavaScriptEnabled(true);
-        wSet.setSupportZoom(true); 
+        //wSet.setSupportZoom(true); 
         
-        wView.requestFocus();
-        wView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
+        //wView.requestFocus();
+        //wView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
         
-        wView.loadUrl("file://" + releaseDir + "/TicTacToe.html"); 
                 
         wView.setWebViewClient(new WebViewClient() {
             @Override
@@ -70,7 +69,8 @@ public class GameActivity extends Activity {
             };
         });
 		
-	    wView.setOnKeyListener(new OnKeyListener() {
+	   
+	     wView.setOnKeyListener(new OnKeyListener() {
 	        @Override
 	        public boolean onKey(View v, int keyCode, KeyEvent event) {
 	            if ((keyCode == KeyEvent.KEYCODE_BACK) && wView != null && wView.canGoBack()) {
@@ -80,7 +80,7 @@ public class GameActivity extends Activity {
 	            return false;
 	        }
 	    });
-	    
+	    /*
 	    wView.addJavascriptInterface(new Object() { 
 	        @SuppressWarnings("unused") 
 	        public void getPosition(final String locX, final String locY) {
@@ -94,7 +94,10 @@ public class GameActivity extends Activity {
 	        
 	        
 	        
-	    },"androidInterface");
+	    },"androidInterface");*/
+
+        //wView.loadUrl("file://" + releaseDir + "/TicTacToe.html"); 
+        wView.loadUrl("file:///android_asset/test.html"); 
 	}
 
 	@Override
