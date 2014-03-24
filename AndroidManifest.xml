@@ -25,6 +25,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/FullscreenTheme" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.childhoodmemories.webgames.LoginActivity"
@@ -44,16 +49,28 @@
         <activity
             android:name="com.childhoodmemories.webgames.test.message.DownloadProgressBarActivity"
             android:label="@string/title_activity_test" >
-            
         </activity>
         <activity
             android:name="com.childhoodmemories.webgames.test.asynctask.DownloadAsyncTaskActivity"
             android:label="@string/title_activity_download_async_task" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.childhoodmemories.webgames.GuidePageOneActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_welcome_page_one"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.childhoodmemories.webgames.GuidePageTwoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_welcome_page_two"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="com.childhoodmemories.webgames.GuideActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_guide"
+            android:theme="@style/FullscreenTheme" >
         </activity>
     </application>
 

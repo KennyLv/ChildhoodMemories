@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">ChildhoodMemories</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_game_square">GameSquareActivity</string>
+    <string name="welcome_content">Hi, Welcome !</string>
     <string name="action_mygames">My Games</string>
     <string name="action_gamesquare">Game Square</string>
     <string name="hello_world">Hello world!</string>
@@ -12,5 +12,13 @@
     <string name="title_activity_test">TestActivity</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_download_async_task">DownloadAsyncTaskActivity</string>
+    <string name="title_activity_welcome_page_one">WelcomePageOneActivity</string>
+    <string name="title_activity_welcome_page_two">WelcomePageTwoActivity</string>
+    <string name="title_activity_guide">GuideActivity</string>
+    <string name="guide_one">GUIDE ONE</string>
+    <string name="guide_two">GUIDE TWO</string>
+    <string name="button_start_login">START</string>
+    <string name="button_page_test">TEST</string>
+    
 
 </resources>

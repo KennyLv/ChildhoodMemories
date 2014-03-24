@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0099cc"
-    tools:context=".WelcomeActivity" >
+    tools:context=".GuidePageTwoActivity" >
 
     <!--
          The primary full-screen view. This can be replaced with whatever view
@@ -17,8 +17,14 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:keepScreenOn="true"
-        android:text="@string/welcome_content"
-        android:textColor="#33b5e5"
+        android:text="@string/guide_two"
+        android:textColor="#333fff"
         android:textSize="50sp"
         android:textStyle="bold" />
+
+		<Button
+			android:id="@+id/button_test"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/button_page_test"/>
 </FrameLayout>
