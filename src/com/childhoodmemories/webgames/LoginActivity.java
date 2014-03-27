@@ -1,5 +1,23 @@
 package com.childhoodmemories.webgames;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.childhoodmemories.webgames.util.JSONParser;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -9,6 +27,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -23,7 +42,7 @@ public class LoginActivity extends Activity {
 	/**
 	 * The default email to populate the email field with.
 	 */
-	public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
+	//public static final String EXTRA_EMAIL = "com.example.android.authenticatordemo.extra.EMAIL";
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -48,7 +67,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 
 		// Set up the login form.
-		mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
+		//mEmail = getIntent().getStringExtra(EXTRA_EMAIL);
 		mEmailView = (EditText) findViewById(R.id.email);
 		mEmailView.setText(mEmail);
 
@@ -190,14 +209,55 @@ public class LoginActivity extends Activity {
 	 * the user.
 	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+		private static final String KEY_SUCCESS = "success";
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
-			
-			
-			//GET User profiles
+			// Creating HTTP client
+			HttpClient httpClient = new DefaultHttpClient();
+			// Creating HTTP Post
+			HttpPost httpPost = new HttpPost("http://10.20.71.62:8056/SharedMemories/v2/");
+			// Building post parameters, key and value pair
+			List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>(2);
+			nameValuePair.add(new BasicNameValuePair("api", "login"));
+			nameValuePair.add(new BasicNameValuePair("email", mEmail));
+			nameValuePair.add(new BasicNameValuePair("password", mPassword));
 
-			return true;
+			// Url Encoding the POST parameters
+	        try {
+	            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePair));
+	        } catch (UnsupportedEncodingException e) {
+	            e.printStackTrace();
+	        }
+	 
+	        // Making HTTP Request
+	        try {
+	            HttpResponse response = httpClient.execute(httpPost);
+	            JSONParser jp = new JSONParser();
+	            JSONObject result = jp.httpResponseToJson(response);
+                try {
+					if (result.getString(KEY_SUCCESS) != null) {
+					    String res = result.getString(KEY_SUCCESS); 
+					    if(Integer.parseInt(res) == 1){
+					    	return true;
+					    }
+					}else{
+						
+						//TODO : define the error code
+						
+					}
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        } catch (ClientProtocolException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+			return false;
 		}
 
 		@Override
@@ -206,14 +266,12 @@ public class LoginActivity extends Activity {
 			showProgress(false);
 
 			if (success) {
-				
 				Intent i = new Intent(LoginActivity.this, GameSquareActivity.class);
                 startActivity(i);
     			showProgress(false);
 				//finish();
 			} else {
-				mPasswordView
-						.setError(getString(R.string.error_incorrect_password));
+				mPasswordView.setError(getString(R.string.error_incorrect_password));
 				mPasswordView.requestFocus();
 			}
 		}
